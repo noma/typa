@@ -11,7 +11,7 @@ project(libnoma_typa LANGUAGES CXX)
 #set(CMAKE_CXX_EXTENSIONS OFF)
 
 # Boost
-find_package(Boost REQUIRED)
+find_package(Boost REQUIRED lexical_cast)
 
 # header only library 
 add_library(noma_typa STATIC src/noma/typa/basic_types.cpp src/noma/typa/braced_list.cpp src/noma/typa/pair src/noma/typa/util.cpp)
