@@ -72,8 +72,18 @@ public:
 	T* data() { return data_; }
 	size_t rows() const { return rows_; }
 	size_t cols() const { return cols_; }
-	T const & at(size_t i, size_t j) const { return data_[i * cols_ + j]; }
-	T& at(size_t i, size_t j) { return data_[i * cols_ + j]; }
+
+	T const & at(size_t i, size_t j) const
+	{
+		assert(i < rows_ && j < cols_);
+		return data_[i * cols_ + j];
+	}
+
+	T& at(size_t i, size_t j)
+	{
+		assert(i < rows_ && j < cols_);
+		return data_[i * cols_ + j];
+	}
 
 	void resize(size_t rows, size_t cols)
 	{
@@ -81,6 +91,17 @@ public:
 		cols_ = cols;
 		deallocate();
 		allocate();
+	}
+
+	matrix<T> transposed() const
+	{
+		matrix<T> result(rows_, cols_);
+		for (size_t i = 0; i < rows_; ++i) {
+			for (size_t j = 0; j < cols_; ++j) {
+				result.at(j,i) = this->at(i,j);
+			}
+		}
+		return result;
 	}
 
 	void print_raw(std::ostream& out, const char& delimiter = '\t') const
